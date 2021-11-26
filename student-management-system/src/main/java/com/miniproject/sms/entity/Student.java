@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.apache.commons.validator.routines.EmailValidator;
+
 @Entity
 @Table(name = "students")
 
@@ -66,7 +68,15 @@ public class Student {
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		if (emailValidation(email)) {
+			this.email = email;
+		}
+	}
+
+	public boolean emailValidation(String email) {
+
+		boolean valid = EmailValidator.getInstance().isValid(email);
+		return valid;
 	}
 
 }
